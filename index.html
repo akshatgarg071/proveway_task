@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Deals</title>
+</head>
+<body>
+<div class="offer-wrapper">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
+    .offer-wrapper {
+      width: 320px;
+      padding: 20px;
+      background-color: #ffffff;
+      border-radius: 10px;
+      margin: 0 auto;
+      font-family: 'Inter', sans-serif;
+      position: relative;
+    }
+
+    .deal-title {
+      text-align: center;
+      font-size: 22px;
+      color: #000000;
+      margin-bottom: 15px;
+      font-weight: 700;
+    }
+
+    .deal-card {
+      border: 2px solid #ff6b82;
+      padding: 15px;
+      margin: 15px 0;
+      background-color: #ffffff;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .deal-card.active {
+      background-color: #fff9fa;
+    }
+
+    .deal-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .deal-info__title {
+      display: flex;
+      align-items: center;
+      font-size: 18px;
+      color: #000000;
+      font-weight: 400;
+    }
+
+    .deal-info__title::before {
+      content: '';
+      width: 16px;
+      height: 16px;
+      border: 2px solid #ff6b82;
+      border-radius: 50%;
+      margin-right: 12px;
+      transition: background-color 0.3s ease;
+      box-shadow: 0 0 0 2px rgba(255, 107, 130, 0.2);
+    }
+
+    .deal-card.active .deal-info__title::before {
+      background-color: #ff6b82;
+    }
+
+    .deal-info__title .discount {
+      font-size: 14px;
+      color: #ffffff;
+      background-color: #ff6b82;
+      padding: 4px 8px;
+      margin-left: 10px;
+      font-weight: 700;
+    }
+
+    .deal-info__pricing {
+      text-align: right;
+    }
+
+    .deal-info__pricing .current-price {
+      font-size: 16px;
+      color: #000000;
+      font-weight: 700;
+    }
+
+    .deal-info__pricing .old-price {
+      font-size: 12px;
+      color: #888888;
+      text-decoration: line-through;
+    }
+
+    .deal-details {
+      max-height: 0;
+      overflow: hidden;
+      margin-top: 15px;
+      transition: max-height 0.5s ease-in-out;
+    }
+
+    .deal-card.active .deal-details {
+      max-height: 600px;
+    }
+
+    .deal-details__row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .deal-details__row div {
+      width: 48%;
+    }
+
+    .deal-details__row label {
+      display: block;
+      font-size: 14px;
+      color: #000000;
+      margin-bottom: 5px;
+    }
+
+    .deal-details__row select {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #cccccc;
+      border-radius: 4px;
+      font-size: 14px;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .deal-details__row select:focus {
+      outline: none;
+      border-color: #ff6b82;
+    }
+
+    .summary {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      margin-top: 20px;
+      color: #000000;
+    }
+
+    .summary .delivery {
+      color: #ff6b82;
+      font-weight: 500;
+    }
+
+    .summary .total {
+      font-weight: 700;
+    }
+
+    .cart-button {
+      background-color: #ff6b82;
+      color: #ffffff;
+      border: none;
+      border-radius: 4px;
+      padding: 12px;
+      font-size: 16px;
+      font-weight: 700;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 15px;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .cart-button::before {
+      content: '+';
+      margin-right: 8px;
+      font-size: 18px;
+    }
+
+    .powered-text {
+      font-size: 12px;
+      color: #00000066;
+      text-align: right;
+      margin-top: 8px;
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
+
+  <h2 class="deal-title">YAY! it's BOGO</h2>
+
+  <!-- First Deal -->
+  <div class="deal-card" onclick="activateDeal(this)">
+    <div class="deal-info">
+      <h3 class="deal-info__title">1 Unit <span class="discount">10% OFF</span></h3>
+      <div class="deal-info__pricing">
+        <div class="current-price">$10.00 USD</div>
+        <div class="old-price">$24.00 USD</div>
+      </div>
+    </div>
+    <div class="deal-details">
+      <div class="deal-details__row">
+        <div>
+          <label for="size-1">Size</label>
+          <select id="size-1">
+            <option value="S">S</option>
+            <option value="M">M</option>
+            <option value="L">L</option>
+          </select>
+        </div>
+        <div>
+          <label for="color-1">Colour</label>
+          <select id="color-1">
+            <option value="Black">Black</option>
+            <option value="White">White</option>
+            <option value="Gray">Gray</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Second Deal -->
+  <div class="deal-card" onclick="activateDeal(this)">
+    <div class="deal-info">
+      <h3 class="deal-info__title">2 Unit <span class="discount">20% OFF</span></h3>
+      <div class="deal-info__pricing">
+        <div class="current-price">$18.00 USD</div>
+        <div class="old-price">$24.00 USD</div>
+      </div>
+    </div>
+    <div class="deal-details">
+      <div class="deal-details__row">
+        <div>
+          <label for="size-2-1">Size #1</label>
+        <select id="size-2-1">
+            <option value="S">S</option>
+            <option value="M">M</option>
+            <option value="L">L</option>
+          </select>
+        </div>
+        <div>
+          <label for="color-2-1">Colour #1</label>
+          <select id="color-2-1">
+            <option value="Black">Black</option>
+            <option value="White">White</option>
+            <option value="Gray">Gray</option>
+          </select>
+        </div>
+      </div>
+      <div class="deal-details__row">
+        <div>
+          <label for="size-2-2">Size #2</label>
+          <select id="size-2-2">
+            <option value="S">S</option>
+            <option value="M">M</option>
+            <option value="L">L</option>
+          </select>
+        </div>
+        <div>
+          <label for="color-2-2">Colour #2</label>
+          <select id="color-2-2">
+            <option value="Black">Black</option>
+            <option value="White">White</option>
+            <option value="Gray">Gray</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Third Deal -->
+  <div class="deal-card" onclick="activateDeal(this)">
+    <div class="deal-info">
+      <h3 class="deal-info__title">3 Unit <span class="discount">30% OFF</span></h3>
+      <div class="deal-info__pricing">
+        <div class="current-price">$24.00 USD</div>
+        <div class="old-price">$24.00 USD</div>
+      </div>
+    </div>
+    <div class="deal-details">
+      <div class="deal-details__row">
+        <div>
+          <label for="size-3-1">Size #1</label>
+          <select id="size-3-1">
+            <option value="S">S</option>
+            <option value="M">M</option>
+            <option value="L">L</option>
+          </select>
+        </div>
+        <div>
+          <label for="color-3-1">Colour #1</label>
+          <select id="color-3-1">
+            <option value="Black">Black</option>
+            <option value="White">White</option>
+            <option value="Gray">Gray</option>
+          </select>
+        </div>
+      </div>
+      <div class="deal-details__row">
+        <div>
+          <label for="size-3-2">Size #2</label>
+          <select id="size-3-2">
+            <option value="S">S</option>
+            <option value="M">M</option>
+            <option value="L">L</option>
+          </select>
+        </div>
+        <div>
+          <label for="color-3-2">Colour #2</label>
+          <select id="color-3-2">
+            <option value="Black">Black</option>
+            <option value="White">White</option>
+            <option value="Gray">Gray</option>
+          </select>
+        </div>
+      </div>
+      <div class="deal-details__row">
+        <div>
+          <label for="size-3-3">Size #3</label>
+          <select id="size-3-3">
+            <option value="S">S</option>
+            <option value="M">M</option>
+            <option value="L">L</option>
+          </select>
+        </div>
+        <div>
+          <label for="color-3-3">Colour #3</label>
+          <select id="color-3-3">
+            <option value="Black">Black</option>
+            <option value="White">White</option>
+            <option value="Gray">Gray</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="summary">
+    <span class="delivery">Free Delivery</span>
+    <span class="total">TOTAL: $18.00 USD</span>
+  </div>
+
+  <button class="cart-button">Add to Cart</button>
+  <div class="powered-text">@Powered by Pumper</div>
+</div>
+
+<script>
+  let activeDeal = null;
+
+  function activateDeal(deal) {
+    if (deal.classList.contains('active')) {
+      deal.classList.remove('active');
+      activeDeal = null;
+    } else {
+      if (activeDeal && activeDeal !== deal) {
+        activeDeal.classList.remove('active');
+      }
+      deal.classList.add('active');
+      activeDeal = deal;
+    }
+  }
+</script>
+</body>
+</html>
